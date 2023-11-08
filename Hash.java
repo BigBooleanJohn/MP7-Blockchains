@@ -22,7 +22,7 @@ public class Hash {
      * 
      * @post: a vaid byte array is returned, or an error is returned
      */
-    public byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
+    public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("sha-256");
         md.update(msg.getBytes());
         byte[] hash = md.digest();
@@ -30,11 +30,13 @@ public class Hash {
     }
 
     /*
+     * TODO: isValid is not correct. (returns true if this hash meets the
+     * criteria for validity, i.e., its first three indices contain zeroes.)
+     * 
      * isValid uses the nonce to compare with the hash as a way of determining if a
      * hash is valid
      * 
      * @pre: the nonce and hash byte array are valid and exist
-     * 
      * 
      * @post: a boolean is returned that derrmines validity, true or false
      */
@@ -50,6 +52,10 @@ public class Hash {
 
     byte[] getData() {
         return this.currHash;
+    }
+
+    int getSize() {
+        return Byte.BYTES * this.getData().length;
     }
 
     /*
