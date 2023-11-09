@@ -1,4 +1,7 @@
-public class HelpCommand implements Command {
+package driver.commands;
+import driver.BlockChainDriver;
+
+public class ReportCommand implements Command {
 
   @Override
   public void run(BlockChainDriver instance) {

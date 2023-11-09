@@ -1,3 +1,4 @@
+package driver;
 
 
 import java.io.BufferedReader;
@@ -5,6 +6,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import blockchain.BlockChain;
+import driver.commands.AppendCommand;
+import driver.commands.CheckCommand;
+import driver.commands.Command;
+import driver.commands.DefaultCommand;
+import driver.commands.HelpCommand;
+import driver.commands.MineCommand;
+import driver.commands.QuitCommand;
+import driver.commands.RemoveCommand;
+import driver.commands.ReportCommand;
 
 public class BlockChainDriver {
   boolean isRunning;
@@ -53,5 +64,9 @@ public class BlockChainDriver {
     registry.put("quit", new QuitCommand());
 
     return registry;
+  }
+
+  public void stop() {
+    this.isRunning = false;
   }
 }

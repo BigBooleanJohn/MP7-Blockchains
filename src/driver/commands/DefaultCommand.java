@@ -1,4 +1,5 @@
-
+package driver.commands;
+import driver.BlockChainDriver;
 
 public class DefaultCommand implements Command {
 

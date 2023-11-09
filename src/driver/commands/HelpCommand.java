@@ -1,4 +1,7 @@
-public class MineCommand implements Command {
+package driver.commands;
+import driver.BlockChainDriver;
+
+public class HelpCommand implements Command {
 
   @Override
   public void run(BlockChainDriver instance) {

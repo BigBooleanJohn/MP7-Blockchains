@@ -1,4 +1,7 @@
-public class CheckCommand implements Command {
+package driver.commands;
+import driver.BlockChainDriver;
+
+public class AppendCommand implements Command {
 
   @Override
   public void run(BlockChainDriver instance) {
