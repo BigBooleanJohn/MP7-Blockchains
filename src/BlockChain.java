@@ -7,11 +7,11 @@ public class BlockChain {
 
     /* this is an inner class to represent the nodes of the blockChain */
     class Node {
-        Block BlockInNode;
+        Block block;
         Node nextNode;
 
         public Node(Block B) {
-            this.BlockInNode = B;
+            this.block = B;
             this.nextNode = null;
         }
     }
@@ -20,13 +20,14 @@ public class BlockChain {
      * creates a BlockChain that possess a single block the starts with the given
      * initial amount. Note that to create this block, the prevHash field should be
      * ignored when calculating the block’s own nonce and hash.
-     * 
-     * NOTE: STILL NEEDS TO BE IMPLEMENTED
      */
     public BlockChain(int initial) {
-        // this.first = new Node(initial, 0, null); make a new node with no previous
-        // hash STILL NEEDS TO BE IMPLEMENTED
-        this.last = this.first;// setting the end and front to point to the same node
+        try {
+            this.first = new Node(new Block(initial, 0, null));
+            this.last = this.first;// setting the end and front to point to the same node
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
     /*
@@ -54,7 +55,7 @@ public class BlockChain {
     public Block mine(int amount) {
         Block B = null;
         try {
-            B = new Block(this.getSize(), amount, this.last.BlockInNode.getHash());
+            B = new Block(this.getSize(), amount, this.last.block.getHash());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -66,6 +67,7 @@ public class BlockChain {
             return false;
         }
         Node temp = this.first;
+        // TODO: temp is possibly null
         while (temp.nextNode != this.last) {// looping to get to the value before the last value
             temp = temp.nextNode;
         }
@@ -75,14 +77,14 @@ public class BlockChain {
     }
 
     public Hash getHash() {
-        return this.last.BlockInNode.getHash();
+        return this.last.block.getHash();
     }
 
     public boolean isValidBlockChain() {
         Node temp = this.first;
         boolean result = true;
         while (temp != null && result != false) {
-            result = temp.BlockInNode.getHash().isValid();
+            result = temp.block.getHash().isValid();
             temp = temp.nextNode;
         }
         return result;
@@ -92,7 +94,7 @@ public class BlockChain {
     public void printBalances() {
         Node temp = this.first;
         while (temp != null) {
-            System.out.println(temp.BlockInNode.toString());
+            System.out.println(temp.block.toString());
         }
     }
 
@@ -101,7 +103,7 @@ public class BlockChain {
         String s = ""; // empty string to start with
         Node temp = this.first;
         while (temp != null) {
-            s = s + temp.BlockInNode.toString();
+            s = s + temp.block.toString();
             s = s + ",\n";
         }
         return s;
