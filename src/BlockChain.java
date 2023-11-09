@@ -23,7 +23,7 @@ public class BlockChain {
      */
     public BlockChain(int initial) {
         try {
-            this.first = new Node(new Block(initial, 0, null));
+            this.first = new Node(new Block(0, initial, null));
             this.last = this.first;// setting the end and front to point to the same node
         } catch (Exception e) {
             System.err.println(e);
@@ -104,7 +104,9 @@ public class BlockChain {
         Node temp = this.first;
         while (temp != null) {
             s = s + temp.block.toString();
-            s = s + ",\n";
+            s = s + "\n";
+
+            temp = temp.nextNode;
         }
         return s;
     }
