@@ -4,8 +4,7 @@ public class DefaultCommand implements Command {
 
   @Override
   public void run(BlockChainDriver instance) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'run'");
+    throw new UnsupportedOperationException("Command not found!");
   }
   
 }
