@@ -96,8 +96,8 @@ public class Block {
    */
   @Override
   public String toString() {
-    return "Block " + getNum() + "(Amount: " + getAmount() + ", Nonce: "
-      + getNonce() + ", prevHash: " + getPrevHash() + ", hash: " + getHash();
+    return "Block " + getNum() + " (Amount: " + getAmount() + ", Nonce: "
+      + getNonce() + ", prevHash: " + getPrevHash() + ", hash: " + getHash() + ")";
   }
 
 }
