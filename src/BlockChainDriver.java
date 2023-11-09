@@ -20,15 +20,24 @@ public class BlockChainDriver {
   }
 
   public static void main(String[] args) throws IOException {
-    BlockChainDriver instance = new BlockChainDriver(Integer.getInteger(args[0]));
+    if (args.length != 1) {
+      System.err.println("ERROR: Missing initial amount!");
+      return;
+    }
+    BlockChainDriver instance = new BlockChainDriver(Integer.parseInt(args[0]));
     PrintWriter pen = new PrintWriter(System.out, true);
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
     while (instance.isRunning) {
       pen.println(instance.blockChain);
       pen.print("Command? ");
+      pen.flush();
       String command = input.readLine();
-      instance.commandRegistry.getOrDefault(command, new DefaultCommand()).run(instance);
+      try {
+        instance.commandRegistry.getOrDefault(command, new DefaultCommand()).run(instance);
+      } catch (UnsupportedOperationException e) {
+        pen.println("ERROR: " + e);
+      }
     }
   }
 
