@@ -33,15 +33,13 @@ public class Block {
   }
 
   private static long calculateNonce(int num, int amount, Hash prevHash) throws NoSuchAlgorithmException {
-    int dataSize = Integer.BYTES + Integer.BYTES + prevHash.getSize() + Long.BYTES;
-    ByteBuffer blockData = ByteBuffer.allocate(dataSize);
     long possibleNonce = -1;  // start at -1 because do while loop will change it to 0
+    byte[] blockData;
 
     do {
       possibleNonce++;
-      blockData = ByteBuffer.allocate(dataSize);
-      blockData = blockData.putInt(num).putInt(amount).put(prevHash.getData()).putLong(possibleNonce);
-    } while (!(new Hash(Hash.calculateHash(blockData.array())).isValid()));
+      blockData = getHashed(num, amount, prevHash, possibleNonce);
+    } while (!(new Hash(Hash.calculateHash(blockData)).isValid()));
 
     return possibleNonce;
   }
@@ -51,9 +49,10 @@ public class Block {
   }
 
   private static byte[] getHashed(int num, int amount, Hash prevHash, long nonce) {
-    int dataSize = Integer.BYTES + Integer.BYTES + prevHash.getSize() + Long.BYTES;
+    Hash hashToPut = prevHash != null ? prevHash : new Hash(new byte[] {});
+    int dataSize = Integer.BYTES + Integer.BYTES + hashToPut.getSize() + Long.BYTES;
     ByteBuffer blockData = ByteBuffer.allocate(dataSize);
-    blockData.putInt(num).putInt(amount).put(prevHash.getData()).putLong(nonce);
+    blockData.putInt(num).putInt(amount).put(hashToPut.getData()).putLong(nonce);
     return blockData.array();
   }
 
