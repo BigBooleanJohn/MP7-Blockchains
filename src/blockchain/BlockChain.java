@@ -88,12 +88,14 @@ public class BlockChain {
         return result;
     }
 
-    /* printing each hash in the chain */
+    /* print alexis and blake's balances on a single line 
+     * TODO: finish implementation
+    */
     public void printBalances() {
-        Node temp = this.first;
-        while (temp != null) {
-            System.out.println(temp.block.toString());
-        }
+        // Node temp = this.first;
+        // while (temp != null) {
+        //     System.out.println(temp.block.toString());
+        // }
     }
 
     /* returning a string representation of the chain */
