@@ -34,6 +34,9 @@ public class BlockChain {
     /*
      * mines a new candidate block to be added to the end of the chain. The returned
      * Block should be valid to add onto this chain.
+     * 
+     * TODO: throwing an IllegalArgumentException if this block cannot be added
+     * to the chain (because it is invalid wrt the rest of the blocks).
      */
     public void append(Block blk) {
         Node N = this.first;
@@ -55,11 +58,7 @@ public class BlockChain {
 
     public Block mine(int amount) {
         Block B = null;
-        try {
-            B = new Block(this.getSize(), amount, this.last.block.getHash());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        B = new Block(this.getSize(), amount, this.last.block.getHash());
         return B;
     }
 
@@ -110,6 +109,10 @@ public class BlockChain {
             temp = temp.nextNode;
         }
         return s;
+    }
+
+    public Block getLast() {
+        return this.last.block;
     }
 
 }

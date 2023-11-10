@@ -22,6 +22,7 @@ public class BlockChainDriver {
   private BlockChain blockChain;
   private HashMap<String, Command> commandRegistry;
   private PrintWriter pen;
+  private BufferedReader inputReader;
 
   static HashMap<String, Command> defaultCommandRegistry = getDefaultCommandRegistry();
 
@@ -30,6 +31,7 @@ public class BlockChainDriver {
     this.blockChain = new BlockChain(initial);
     this.commandRegistry = defaultCommandRegistry;
     this.pen = new PrintWriter(System.out, true);
+    this.inputReader = new BufferedReader(new InputStreamReader(System.in));
   }
 
   public static void main(String[] args) throws IOException {
@@ -38,7 +40,7 @@ public class BlockChainDriver {
       return;
     }
     BlockChainDriver instance = new BlockChainDriver(Integer.parseInt(args[0]));
-    BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    BufferedReader input = instance.getInputReader();
     PrintWriter pen = instance.getPen();
 
     while (instance.isRunning) {
@@ -79,5 +81,13 @@ public class BlockChainDriver {
 
   public HashMap<String, Command> getCommands() {
     return this.commandRegistry;
+  }
+
+  public BufferedReader getInputReader() {
+    return this.inputReader;
+  }
+
+  public BlockChain getBlockChain() {
+    return this.blockChain;
   }
 }

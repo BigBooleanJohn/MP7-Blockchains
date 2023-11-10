@@ -11,36 +11,44 @@ public class Block {
   private Hash hash;
 
   /**
-   * Creates a new block from the specified parameters, performing the mining
-   * operation to discover the nonce and hash for this block given these parameters.
+   * Creates a new block from the specified parameters, performing the mining operation to discover
+   * the nonce and hash for this block given these parameters.
    */
-  public Block (int num, int amount, Hash prevHash) throws NoSuchAlgorithmException {
+  public Block(int num, int amount, Hash prevHash) {
     this(num, amount, prevHash, calculateNonce(num, amount, prevHash));
   }
 
   /**
-   * Creates a new block from the specified parameters, using the provided nonce
-   * and additional parameters to generate the hash for the block. Because the
-   * nonce is provided, this constructor does not need to perform the mining
-   * operation; it can compute the hash directly.
+   * Creates a new block from the specified parameters, using the provided nonce and additional
+   * parameters to generate the hash for the block. Because the nonce is provided, this constructor
+   * does not need to perform the mining operation; it can compute the hash directly.
    */
-  public Block (int num, int amount, Hash prevHash, long nonce) throws NoSuchAlgorithmException {
+  public Block(int num, int amount, Hash prevHash, long nonce) {
     this.num = num;
     this.amount = amount;
     this.prevHash = prevHash;
     this.nonce = nonce;
 
-    this.hash = new Hash(Hash.calculateHash(getHashed()));
+    try {
+      this.hash = new Hash(Hash.calculateHash(getHashed()));
+    } catch (NoSuchAlgorithmException e) {
+      System.err.println("FATAL ERROR: Can't generate hash!");
+    }
   }
 
-  private static long calculateNonce(int num, int amount, Hash prevHash) throws NoSuchAlgorithmException {
-    long possibleNonce = -1;  // start at -1 because do while loop will change it to 0
+  private static long calculateNonce(int num, int amount, Hash prevHash) {
+    long possibleNonce = -1; // start at -1 because do while loop will change it to 0
     byte[] blockData;
 
-    do {
-      possibleNonce++;
-      blockData = getHashed(num, amount, prevHash, possibleNonce);
-    } while (!(new Hash(Hash.calculateHash(blockData)).isValid()));
+    try {
+      do {
+        possibleNonce++;
+        blockData = getHashed(num, amount, prevHash, possibleNonce);
+      } while (!(new Hash(Hash.calculateHash(blockData)).isValid()));
+    } catch (NoSuchAlgorithmException e) {
+      System.err.println("FATAL ERROR: Can't generate nonce!");
+      return -1;
+    }
 
     return possibleNonce;
   }
@@ -97,8 +105,8 @@ public class Block {
    */
   @Override
   public String toString() {
-    return "Block " + getNum() + " (Amount: " + getAmount() + ", Nonce: "
-      + getNonce() + ", prevHash: " + getPrevHash() + ", hash: " + getHash() + ")";
+    return "Block " + getNum() + " (Amount: " + getAmount() + ", Nonce: " + getNonce()
+        + ", prevHash: " + getPrevHash() + ", hash: " + getHash() + ")";
   }
 
 }
