@@ -3,8 +3,8 @@ package blockchain;
 public class BlockChain {
     Node first;
     Node last;
-    int CurAlexisMoney;
-    int CurBlakeMoney;
+    int currAlexis;
+    int currBlake;
 
     /* this is an inner class to represent the nodes of the blockChain */
     class Node {
@@ -18,28 +18,25 @@ public class BlockChain {
     }
 
     /*
-     * creates a BlockChain that possess a single block the starts with the given
-     * initial amount. Note that to create this block, the prevHash field should be
-     * ignored when calculating the block’s own nonce and hash.
+     * creates a BlockChain that possess a single block the starts with the given initial amount.
+     * Note that to create this block, the prevHash field should be ignored when calculating the
+     * block’s own nonce and hash.
      */
     public BlockChain(int initial) {
         this.first = new Node(new Block(0, initial, null));
         this.last = this.first;// setting the end and front to point to the same node
-        this.CurAlexisMoney = 0;
-        this.CurBlakeMoney = 0;
+        this.currAlexis = 0;
+        this.currBlake = 0;
         if (initial < 0) {
-            this.CurBlakeMoney -= initial;
+            this.currBlake -= initial;
         } else {
-            this.CurAlexisMoney += initial;
+            this.currAlexis += initial;
         }
     }
 
     /*
-     * mines a new candidate block to be added to the end of the chain. The returned
-     * Block should be valid to add onto this chain.
-     * 
-     * TODO: throwing an IllegalArgumentException if this block cannot be added
-     * to the chain (because it is invalid wrt the rest of the blocks).
+     * mines a new candidate block to be added to the end of the chain. The returned Block should be
+     * valid to add onto this chain.
      */
     public void append(Block blk) throws IllegalArgumentException {
         // make sure that the hash of the new block is valid
@@ -55,20 +52,24 @@ public class BlockChain {
         }
 
         // and also check if the balances make sense
-        int BlakeTemp = this.CurBlakeMoney;
-        int AlexisTemp = this.CurAlexisMoney;
+        int BlakeTemp = this.currBlake;
+        int AlexisTemp = this.currAlexis;
         BlakeTemp -= blk.getAmount();
         AlexisTemp += blk.getAmount();
         if (BlakeTemp < 0 || AlexisTemp < 0) {
             throw new IllegalArgumentException("Block's transactions are illegal!");
         }
-        this.CurBlakeMoney = BlakeTemp;
-        this.CurAlexisMoney = AlexisTemp;
+        this.currBlake = BlakeTemp;
+        this.currAlexis = AlexisTemp;
         Node newBlockNode = new Node(blk);
         this.last.nextNode = newBlockNode;// setting the new node to be the last
         this.last = newBlockNode;
     }
 
+    /**
+     * returns the size of the blockchain. Note that number of the blocks provides a convenient
+     * method for quickly determining the size of the chain.
+     */
     public int getSize() {
         int counter = 0;
         Node curr = this.first;
@@ -79,10 +80,18 @@ public class BlockChain {
         return counter;
     }
 
+    /**
+     * mines a new candidate block to be added to the end of the chain. The returned Block should be
+     * valid to add onto this chain.
+     */
     public Block mine(int amount) {
         return new Block(this.getSize(), amount, this.last.block.getHash());
     }
 
+    /**
+     * removes the last block from the chain, returning true. If the chain only contains a single
+     * block, then removeLast does nothing and returns false.
+     */
     public boolean removeLast() {
         if (this.first == this.last) {
             return false;
@@ -96,10 +105,16 @@ public class BlockChain {
         return true;
     }
 
+    /**
+     * returns the hash of the last block
+     */
     public Hash getHash() {
         return this.last.block.getHash();
     }
 
+    /**
+     * checks if the blockchain is valid
+     */
     public boolean isValidBlockChain() {
         Node temp = this.first;
         boolean result = true;
@@ -112,14 +127,14 @@ public class BlockChain {
 
     /*
      * print alexis and blake's balances on a single line
-     * TODO: finish implementation
      */
     public void printBalances() {
-        System.out.printf("Alexis: %d, ", this.CurAlexisMoney);
-        System.out.printf("Blake: %d\n", this.CurBlakeMoney);
+        System.out.println("Alexis: " + this.currAlexis + ", Blake: " + this.currBlake);
     }
 
-    /* returning a string representation of the chain */
+    /**
+     * returning a string representation of the chain
+     */
     public String toString() {
         String s = ""; // empty string to start with
         Node temp = this.first;
@@ -132,6 +147,9 @@ public class BlockChain {
         return s;
     }
 
+    /**
+     * returns the last block in this blockchain
+     */
     public Block getLast() {
         return this.last.block;
     }
