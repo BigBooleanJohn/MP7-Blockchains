@@ -1,6 +1,5 @@
 package driver;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -50,7 +49,7 @@ public class BlockChainDriver {
       String command = input.readLine();
       try {
         instance.getCommands().getOrDefault(command, new DefaultCommand()).run(instance);
-      } catch (UnsupportedOperationException e) {
+      } catch (Exception e) {
         pen.println("ERROR: " + e.getMessage());
       }
       pen.println();
