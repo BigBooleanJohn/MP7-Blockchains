@@ -1,6 +1,7 @@
-# Mini-Project 6 : Sorting Out Sorting
+# Mini-Project 7 : Sorting Out Sorting
 ## Name(s)
 Julian Kim
+
 John Miller
 
 ## Description
