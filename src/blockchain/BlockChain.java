@@ -115,10 +115,8 @@ public class BlockChain {
      * TODO: finish implementation
      */
     public void printBalances() {
-        // Node temp = this.first;
-        // while (temp != null) {
-        // System.out.println(temp.block.toString());
-        // }
+        System.out.printf("Alexis: %d, ", this.CurAlexisMoney);
+        System.out.printf("Blake: %d\n", this.CurBlakeMoney);
     }
 
     /* returning a string representation of the chain */
