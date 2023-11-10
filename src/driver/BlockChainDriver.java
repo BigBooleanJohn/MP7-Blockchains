@@ -56,6 +56,9 @@ public class BlockChainDriver {
     }
   }
 
+  /**
+   * Returns the default command name and Command pairings
+   */
   public static HashMap<String, Command> getDefaultCommandRegistry() {
     HashMap<String, Command> registry = new HashMap<>();
 
@@ -70,22 +73,37 @@ public class BlockChainDriver {
     return registry;
   }
 
+  /**
+   * Stops the instance
+   */
   public void stop() {
     this.isRunning = false;
   }
 
+  /**
+   * Returns the instance's PrintWriter
+   */
   public PrintWriter getPen() {
     return this.pen;
   }
 
+  /**
+   * Returns the instance's commands
+   */
   public HashMap<String, Command> getCommands() {
     return this.commandRegistry;
   }
 
+  /**
+   * Returns the instance's InputReader
+   */
   public BufferedReader getInputReader() {
     return this.inputReader;
   }
 
+  /**
+   * Return's the instance's BlockChain
+   */
   public BlockChain getBlockChain() {
     return this.blockChain;
   }
