@@ -37,12 +37,15 @@ public class BlockChain {
      * to the chain (because it is invalid wrt the rest of the blocks).
      */
     public void append(Block blk) {
-        Node N = this.first;
-        while (N.nextNode != null) {
-            N = N.nextNode;// looping to get to the last node in the list
-        }
+        // make sure that the hash of the new block is valid
+
+        // check if the prevHash of the new block is equal to the hash of our current last block
+
+        // and also check if the balances make sense
+
         Node newBlockNode = new Node(blk);
-        N.nextNode = newBlockNode;// setting the new node to be the last
+
+        this.last.nextNode = newBlockNode;// setting the new node to be the last
         this.last = newBlockNode;
     }
 
@@ -65,7 +68,6 @@ public class BlockChain {
             return false;
         }
         Node temp = this.first;
-        // TODO: temp is possibly null
         while (temp.nextNode != this.last) {// looping to get to the value before the last value
             temp = temp.nextNode;
         }
