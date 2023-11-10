@@ -8,5 +8,10 @@ public class RemoveCommand implements Command {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'run'");
   }
+
+  @Override
+  public String getDescription() {
+    return "removes the last block from the end of the chain";
+  }
   
 }

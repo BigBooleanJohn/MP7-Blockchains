@@ -8,5 +8,10 @@ public class MineCommand implements Command {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'run'");
   }
+
+  @Override
+  public String getDescription() {
+    return "discovers the nonce for a given transaction";
+  }
   
 }

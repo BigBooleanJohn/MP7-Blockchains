@@ -8,5 +8,10 @@ public class AppendCommand implements Command {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'run'");
   }
+
+  @Override
+  public String getDescription() {
+    return "appends a new block onto the end of the chain";
+  }
   
 }

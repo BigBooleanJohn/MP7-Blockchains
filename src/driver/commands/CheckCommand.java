@@ -8,5 +8,10 @@ public class CheckCommand implements Command {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'run'");
   }
+
+  @Override
+  public String getDescription() {
+    return "checks that the block chain is valid";
+  }
   
 }

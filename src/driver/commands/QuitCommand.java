@@ -7,5 +7,10 @@ public class QuitCommand implements Command {
   public void run(BlockChainDriver instance) {
     instance.stop();
   }
+
+  @Override
+  public String getDescription() {
+    return "quits the program";
+  }
   
 }

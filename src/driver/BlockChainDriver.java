@@ -18,9 +18,10 @@ import driver.commands.RemoveCommand;
 import driver.commands.ReportCommand;
 
 public class BlockChainDriver {
-  boolean isRunning;
-  BlockChain blockChain;
-  HashMap<String, Command> commandRegistry;
+  private boolean isRunning;
+  private BlockChain blockChain;
+  private HashMap<String, Command> commandRegistry;
+  private PrintWriter pen;
 
   static HashMap<String, Command> defaultCommandRegistry = getDefaultCommandRegistry();
 
@@ -28,6 +29,7 @@ public class BlockChainDriver {
     this.isRunning = true;
     this.blockChain = new BlockChain(initial);
     this.commandRegistry = defaultCommandRegistry;
+    this.pen = new PrintWriter(System.out, true);
   }
 
   public static void main(String[] args) throws IOException {
@@ -36,8 +38,8 @@ public class BlockChainDriver {
       return;
     }
     BlockChainDriver instance = new BlockChainDriver(Integer.parseInt(args[0]));
-    PrintWriter pen = new PrintWriter(System.out, true);
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    PrintWriter pen = instance.getPen();
 
     while (instance.isRunning) {
       pen.println(instance.blockChain);
@@ -45,10 +47,11 @@ public class BlockChainDriver {
       pen.flush();
       String command = input.readLine();
       try {
-        instance.commandRegistry.getOrDefault(command, new DefaultCommand()).run(instance);
+        instance.getCommands().getOrDefault(command, new DefaultCommand()).run(instance);
       } catch (UnsupportedOperationException e) {
-        pen.println("ERROR: " + e);
+        pen.println("ERROR: " + e.getMessage());
       }
+      pen.println();
     }
   }
 
@@ -68,5 +71,13 @@ public class BlockChainDriver {
 
   public void stop() {
     this.isRunning = false;
+  }
+
+  public PrintWriter getPen() {
+    return this.pen;
+  }
+
+  public HashMap<String, Command> getCommands() {
+    return this.commandRegistry;
   }
 }
