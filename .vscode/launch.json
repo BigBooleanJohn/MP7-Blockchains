@@ -8,7 +8,7 @@
       "type": "java",
       "name": "BlockChainDriver",
       "request": "launch",
-      "mainClass": "BlockChainDriver",
+      "mainClass": "driver.BlockChainDriver",
       "projectName": "Blockchains_f815940a",
       "args": "${command:SpecifyProgramArgs}"
     }
