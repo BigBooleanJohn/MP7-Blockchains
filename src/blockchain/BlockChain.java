@@ -44,22 +44,22 @@ public class BlockChain {
             N = N.nextNode;// looping to get to the last node in the list
         }
         Node newBlockNode = new Node(blk);
-        N.nextNode = newBlockNode;// setting the new node to be the
+        N.nextNode = newBlockNode;// setting the new node to be the last
+        this.last = newBlockNode;
     }
 
     public int getSize() {
         int counter = 0;
-        while (this.first != null) {
-            this.first = this.first.nextNode;
+        Node curr = this.first;
+        while (curr != null) {
+            curr = curr.nextNode;
             counter++;
         }
         return counter;
     }
 
     public Block mine(int amount) {
-        Block B = null;
-        B = new Block(this.getSize(), amount, this.last.block.getHash());
-        return B;
+        return new Block(this.getSize(), amount, this.last.block.getHash());
     }
 
     public boolean removeLast() {

@@ -1,6 +1,7 @@
 package driver.commands;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import blockchain.Block;
 import blockchain.BlockChain;
 import driver.BlockChainDriver;
 
@@ -24,7 +25,9 @@ public class MineCommand implements Command {
     }
 
     BlockChain blockChain = instance.getBlockChain();
-    blockChain.mine(amount);
+    Block discoveredBlock = (blockChain.mine(amount));
+    
+    pen.println("amount = " + discoveredBlock.getAmount() + ", nonce = " + discoveredBlock.getNonce());
   }
 
   @Override

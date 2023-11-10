@@ -24,6 +24,9 @@ public class AppendCommand implements Command {
       return;
     }
 
+    pen.print("Nonce? ");
+    pen.flush();
+
     long nonce;
 
     try {
