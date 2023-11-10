@@ -1,7 +1,5 @@
 package blockchain;
 
-import java.security.NoSuchAlgorithmException;
-
 public class BlockChain {
     Node first;
     Node last;
