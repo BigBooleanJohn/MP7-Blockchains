@@ -1,4 +1,4 @@
-# Mini-Project 7 : Sorting Out Sorting
+# Mini-Project 7 : Blockchains
 ## Name(s)
 Julian Kim
 
