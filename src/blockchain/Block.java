@@ -36,6 +36,9 @@ public class Block {
     }
   }
 
+  /**
+   * Calculates the nonce for a block with specified parameters.
+   */
   private static long calculateNonce(int num, int amount, Hash prevHash) {
     long possibleNonce = -1; // start at -1 because do while loop will change it to 0
     byte[] blockData;
@@ -53,10 +56,16 @@ public class Block {
     return possibleNonce;
   }
 
+  /**
+   * Returns the hashed representation of this block.
+   */
   private byte[] getHashed() {
     return getHashed(this.num, this.amount, this.prevHash, this.nonce);
   }
 
+  /**
+   * Returns the hashed representation of a block.
+   */
   private static byte[] getHashed(int num, int amount, Hash prevHash, long nonce) {
     Hash hashToPut = prevHash != null ? prevHash : new Hash(new byte[] {});
     int dataSize = Integer.BYTES + Integer.BYTES + hashToPut.getSize() + Long.BYTES;
